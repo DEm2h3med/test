@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DeepScan Demo App</title>
+</head>
+<body>
+  <h1>Welcome to DeepScan Test App</h1>
+  <input type="text" id="nameInput" placeholder="Enter your name" />
+  <button onclick="greetUser()">Greet</button>
+
+  <p id="greeting"></p>
+
+  <script>
+    // Unused variable
+    let unused = "This is not used";
+
+    // Function to greet the user
+    function greetUser() {
+      let name = document.getElementById("nameInput").value;
+
+      // Potential XSS vulnerability (unsafe innerHTML assignment)
+      document.getElementById("greeting").innerHTML = "Hello, " + name + "!";
+
+      // No input validation
+      if (name == "") {
+        alert("Please enter your name");
+      }
+
+      // Example of bad code: try-catch with empty catch
+      try {
+        riskyFunction();
+      } catch (e) {
+        // Silently ignore error
+      }
+    }
+
+    function riskyFunction() {
+      // ReferenceError: foo is not defined
+      return foo + 1;
+    }
+  </script>
+</body>
+</html>
